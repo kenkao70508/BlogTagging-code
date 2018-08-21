@@ -92,15 +92,15 @@ def articleList(category):
 def save():
     try:
         ## get data from user
-        args = request.args()
+        path = request.args.path()
         content = request.get_json()
         articleType = content['articleType']
         # print("content:", content)
-        print("args:", args)
+        print("path:", path)
 
         ## locate json file
         json_file = getJsonLoc(articleType)
-        print("path:", json_file) 
+         
         
         with open(json_file, 'r', encoding="utf-8") as f: data = json.load(f)
         for d in data:
