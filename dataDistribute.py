@@ -14,7 +14,7 @@ def arg_parse():
 
 
 def JsonLoad(category, AssignNumber, username):
-	path_to_appier_json = './appierData/appierData/parsedData'
+	path_to_appier_json = '../appierData/appierData/parsedData'
 	path_to_user_json   = '../userData/' + username + '/'
 	data_to_be_assigned = []
 	
