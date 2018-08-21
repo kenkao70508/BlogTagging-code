@@ -2,14 +2,14 @@ import os, json
 import pandas as pd
 
 
-def updateJsonFile(filename, filepath):
+def updateJsonFile(filename, filepath, username):
 
     # update articles keys
     with open(filepath + filename, 'r') as json_file:
         readJson = json.load(json_file)
         for item in readJson:
-            item['assigned']  = "no"
-            item['annotater'] = ""
+            item['assigned']  = "yes"
+            item['annotater'] = username
             item['stored'] = "no"
 
     with open(filepath + filename, 'w') as json_file2:
@@ -33,7 +33,7 @@ if __name__ == '__main__':
             json_files = [name for name in os.listdir(path_to_userData_user_cat) if name.endswith('.json')]
             print("CATEGORY:{}".format(cat))
             for filename in json_files:
-                updateJsonFile(filename, path_to_userData_user_cat)
+                updateJsonFile(filename, path_to_userData_user_cat, folderName)
                 print("File:{}".format(filename))
     
 
