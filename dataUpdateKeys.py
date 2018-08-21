@@ -26,7 +26,7 @@ if __name__ == '__main__':
 
     for folderName in userData_folders: 
         path_to_userData_user = path_to_userData + folderName + '/'  
-        user_categories = [name for name in os.listdir(path_to_user) if os.path.isdir(os.path.join(path_to_user,name))]
+        user_categories = [name for name in os.listdir(path_to_userData_user) if os.path.isdir(os.path.join(path_to_userData_user,name))]
         print(user_categories)
     
 
