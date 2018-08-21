@@ -96,7 +96,8 @@ def save():
         articleType = content['articleType']
 
         ## locate json file
-        json_file = getJsonLoc(articleType) 
+        json_file = getJsonLoc(articleType)
+        print("path:", json_file) 
         
         with open(json_file, 'r', encoding="utf-8") as f: data = json.load(f)
         for d in data:
