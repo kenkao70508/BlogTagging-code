@@ -94,6 +94,7 @@ def save():
         ## get data from user
         content = request.get_json()
         articleType = content['articleType']
+        print("content:", content)
 
         ## locate json file
         json_file = getJsonLoc(articleType)
