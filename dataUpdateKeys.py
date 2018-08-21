@@ -17,8 +17,13 @@ def updateJsonFile(filename, filepath):
         json.dump(readJson, json_file2)
 
 if __name__ == '__main__':
-    path_to_json = '../appierData/appierData/parsedData/'
-    json_files = [pos_json for pos_json in os.listdir(path_to_json) if pos_json.endswith('.json')]
+    # path_to_json = '../appierData/appierData/parsedData/'
+    # json_files = [pos_json for pos_json in os.listdir(path_to_json) if pos_json.endswith('.json')]
+    # for file in json_files:
+    #     updateJsonFile(file, path_to_json)    
+    for i in range(25): 
+        path_to_user =  '../userData/user' + str(i) + '/'  
+        user_categories = [name for name in os.listdir(path_to_user) if os.path.isdir(os.path.join(path_to_user,name))]
+        print(user_categories)
     
-    for file in json_files:
-        updateJsonFile(file, path_to_json)
+
