@@ -4,6 +4,7 @@ import pandas as pd
 
 def updateJsonFile(filename, filepath):
 
+    # update articles keys
     with open(filepath + filename, 'r') as json_file:
         readJson = json.load(json_file)
         print(filepath + filename, readJson[0].keys())
