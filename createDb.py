@@ -1,6 +1,12 @@
 import sqlite3
 import csv
 
+def arg_parse():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--user', default='user0', type=str, help='select user')
+    parser.add_argument('--cat', default='beauty', type=str, help='select user')
+    return parser.parse_args()
+
 def create():
     with open('./data/user.csv', newline='') as f:
         csv_reader = csv.DictReader(f)
@@ -36,6 +42,7 @@ def example():
     updateCat('user0', 'tech_0')
 
 if  __name__ == '__main__':
-    updateCat('guest', 'beautymakeup, moviecritics, threec, food')
+    arg = arg_parse()
+    updateCat(arg.user, arg.cat)
     view()
     
