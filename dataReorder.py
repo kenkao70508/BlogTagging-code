@@ -109,9 +109,10 @@ elif args.organize:
 	for i in range(args.n_user+1):
 		user_path = '../userData/user'+str(i)+'/'
 		user_categories = [name for name in os.listdir(user_path) if os.path.isdir(os.path.join(user_path,name))]
-		# print(user_files)
-		# pdb.set_trace()
+		print("="*20)
+		print("Current user:{}".format("user"+str(i)))
 		for cat in user_categories:
+			print("Current category:{}".format(cat))
 			fileDir = user_path + cat + '/'
 			category_files = [name for name in os.listdir(fileDir) if name.endswith('.json')]
 			
@@ -132,6 +133,7 @@ elif args.organize:
 
 			# save doneData
 			with open(done_path + cat + '.json','w') as f: json.dump(doneData, f)
+			print("Number of articles in {}: {}".format(done_path + cat + '.json',len(doneData)))
 
 
 
