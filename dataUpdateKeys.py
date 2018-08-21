@@ -8,8 +8,9 @@ def updateJsonFile(filename, filepath):
         readJson = json.load(json_file)
         print(filepath + filename, readJson[0].keys())
         for item in readJson:
-            item['assigned']  = "Not yet"
+            item['assigned']  = "no"
             item['annotater'] = ""
+            item['stored'] = "no"
 
     with open(filepath + filename, 'w') as json_file2:
         json.dump(readJson, json_file2)
