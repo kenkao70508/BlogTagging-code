@@ -22,7 +22,7 @@ if __name__ == '__main__':
     path_to_json = '../userData/'
     user_folders = [(pos_json + '/') for pos_json in os.listdir(path_to_json) if pos_json != '.DS_Store']
 
-    original_path = path_to_json + 'user2/'
+    original_path = path_to_json + 'guest/'
     Redistribute(original_path)
     # for folder in user_folders:
     #     original_path = path_to_json + folder 
