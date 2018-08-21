@@ -80,6 +80,7 @@ def articleList(category):
     for file in json_files:
         with open(filepath + '/' + file, 'r', encoding="utf-8") as f: 
             articles = json.load(f)
+            session[articles[0]['index']] = file
             for a in articles: 
                 if 'status' not in a:
                     a['status'] = 'untagged'
@@ -92,17 +93,14 @@ def articleList(category):
 def save():
     try:
         ## get data from user
-        path = request.args.path()
         content = request.get_json()
         articleType = content['articleType']
-        # print("content:", content)
-        print("path:", path)
-        print("hello\n")
+        filename = session.get(content['index'])
         ## locate json file
         json_file = getJsonLoc(articleType)
          
         
-        with open(json_file, 'r', encoding="utf-8") as f: data = json.load(f)
+        with open(json_file + filename, 'r', encoding="utf-8") as f: data = json.load(f)
         for d in data:
             if d['id']==content['index']: 
                 d['content_w'] = content['data_w']
