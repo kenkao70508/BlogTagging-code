@@ -1,9 +1,17 @@
-import os, pdb, json
+import os, pdb, json, argparse
 
 # Given Information:
 # - Category: ex. beauty
 # - UserNum: ex. user10
 # - NumOfArticles: ex. 10
+
+def arg_parse():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--user', default='user0', type=str, help='select user')
+    parser.add_argument('--cat', default='beauty', type=str, help='select category')
+    parser.add_argument('--num', default=0, type=int, help='assign number of articles')
+    return parser.parse_args()
+
 
 def JsonLoad(category, AssignNumber, username):
 	path_to_appier_json = './appierData/appierData/parsedData'
@@ -71,8 +79,9 @@ def JsonDump(data, filepath):
 	return
 
 
-
-JsonLoad('beauty', 220, 'user10')
+if __name__ == '__main__':
+	args = arg_parse()
+	JsonLoad(args.cat, args.num, args.user)
 # CheckProcess(LoadData, UpdatedData)
 
 
