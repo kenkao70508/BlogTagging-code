@@ -21,9 +21,12 @@ if __name__ == '__main__':
     # json_files = [pos_json for pos_json in os.listdir(path_to_json) if pos_json.endswith('.json')]
     # for file in json_files:
     #     updateJsonFile(file, path_to_json)    
-    for i in range(25): 
-        path_to_user =  '../userData/user' + str(i) + '/'  
-        user_categories = [name for name in os.listdir(path_to_user) if os.path.isdir(os.path.join(path_to_user,name))]
-        print(user_categories)
+    path_to_userData = '../userData/'
+    userData_folders = [name for name in os.listdir(path_to_userData) if os.path.isdir(os.path.join(path_to_userData,name))]
+    print(userData_folders)
+    # for i in range(26): 
+    #     path_to_user =  '../userData/user' + str(i) + '/'  
+    #     user_categories = [name for name in os.listdir(path_to_user) if os.path.isdir(os.path.join(path_to_user,name))]
+    #     print(user_categories)
     
 
