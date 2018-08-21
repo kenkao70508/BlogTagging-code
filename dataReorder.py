@@ -6,7 +6,7 @@ import pdb
 def arg_parse():
 	parser = argparse.ArgumentParser()
 	parser.add_argument('--user', default='user0', type=str, help='select user')
-	parser.add_argument('--n_user', default=1, type=int, help='select user')
+	parser.add_argument('--n_user', default=0, type=int, help='select user')
 	# organize: organize userData to doneData.
 	parser.add_argument('--organize', action='store_true',help='')
 	parser.add_argument('--count', action='store_true',help='')
@@ -113,12 +113,26 @@ elif args.organize:
 		# pdb.set_trace()
 		for cat in user_categories:
 			fileDir = user_path + cat + '/'
-			category_files = [name for name in os.listdir(fileDir) if name.ensdwith('.json')]
+			category_files = [name for name in os.listdir(fileDir) if name.endswith('.json')]
+			
+			# open json_file in doneData
+			with open(done_path + cat + '.json','r') as f: doneData = json.load(f)
+			
+			# open json_file under userData/user#/cat/
 			for filename in category_files:
-				filePath = fileDir + filename 
-				with open(done_path + cat + '.json','r') as f: doneData = json.load(f)
-			for d in userData:
-				if d['status']!='tagged': continue 
-				d['annotator'] = args.user
-				doneData.append(d)
-			with open(done_path+category(userf)+'.json', 'w') as f: json.dump(doneData,f)
+				# open article
+				with open(user_path + cat + '/' + filename, 'r') as f: 
+					article = json.load(f)[0]
+					if ( (article['status']=='tagged') & (article['stored']=='no')):
+						article['stored'] = 'yes'
+						doneData.append(article)
+				# save article 
+				with open(user_path + cat + '/' + filename, 'w') as f2:
+					json.dump([article], f2)
+
+			# save doneData
+			with open(done_path + cat + '.json','w') as f: json.dump(doneData, f)
+
+
+
+
