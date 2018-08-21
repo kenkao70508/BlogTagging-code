@@ -38,8 +38,8 @@ def JsonLoad(category, AssignNumber, username):
 			# assign articles to user's folder
 			for article_order in range(len(temp_data)):
 				temp_already_assigned_num += 1
-				if temp_data[article_order]['assigned'] == 'Not yet':
-					temp_data[article_order]['assigned'] = 'Yes'
+				if temp_data[article_order]['assigned'] == 'no':
+					temp_data[article_order]['assigned'] = 'yes'
 					temp_data[article_order]['annotater'] = username
 					saved_path = path_to_user_json + category + str(appier_json_files_num[IntiateFileNum]) + '_' + temp_data[article_order]['id'] + '.json'
 					
