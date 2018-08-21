@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>MY's Annotation Tool</title>
+		<meta charset="utf-8" />
+		<meta http-equiv="Content-Type" content="text/html" />
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+		<link rel="icon" href="{{ url_for('static', filename='fig/favicon.ico') }}" type="image/x-icon"> 
+		<style>
+			mention {
+				background-color: #ffdddd;
+				border-left: 6px solid #f44336;
+				border-right: 6px solid #ffffff;
+				cursor: pointer;
+			}
+            mention[score="1"] {
+                background-color: #cfeef3;
+                border-left: 6px solid #40bbcf;
+            }
+            mention[score="2"] {
+                background-color: #cae5cd;
+                border-left: 6px solid #60b36b;
+            }
+            mention[score="3"] {
+                background-color: #fbfdb1;
+                border-left: 6px solid #e5c500;
+            }
+            mention[score="4"] {
+                background-color: #fee3c4;
+                border-left: 6px solid #fca43d;
+            }
+            mention[score="5"] {
+                background-color: #f8bbc5;
+                border-left: 6px solid #ee6278;
+            }
+			.subjective {
+				background-color: #ffdddd;
+			}
+			.objective {
+				background-color: #66cdaa;
+			}
+			.button {
+			    padding: 16px 32px;
+			    text-align: center;
+			    text-decoration: none;
+			    display: inline-block;
+			    font-size: 16px;
+			    margin: 4px 2px;
+			    -webkit-transition-duration: 0.25s; /* Safari */
+			    transition-duration: 0.25s;
+			    cursor: pointer;
+			    background-color: white;
+			    color: #4CAF50;
+			    border: 2px solid #4CAF50;
+			    position: fixed;
+			    bottom: 0px;
+			}
+			.button:hover {
+			    background-color: #4CAF50;
+			    color: white;
+			}
+
+		</style>
+	</head>
+	<body onkeydown="enterGrep()">
+
+		{% include 'navbar.html' %}
+
+		<form class="" action="" method="get" style ='padding-left: 1%; padding-top: 1%; padding-right: 1%'>
+			<select class="custom-select my-1 mr-sm-2" id="selectBox" name="index">
+    			{% for a in articleList %}
+                    {% if a[0] == articleIndex %}
+    			        <option value="{{a[0]}}" selected>({{a[2]}}) {{a[1]}}</option>
+                    {% else %}
+    			        <option value="{{a[0]}}">({{a[2]}}) {{a[1]}}</option>
+                    {% endif %}
+    			{% endfor %}
+    		</select>
+		</form>		
+
+		<div  style ='padding-left: 1%; padding-top: 1%; padding-right: 1%'>
+			<div class="card alert-info">
+				<div class="card-body">
+					<form>
+						<h5>
+							<div class="form-group row" >
+								<label class="col-sm-1 col-form-label">
+									標題
+								</label>
+								<div class="col-md-10">
+									<input type="text" readonly class="form-control-plaintext" value="{{articleName}}">
+								</div>
+							</div>
+							<div class="form-group row" >
+								<label  class="col-sm-1 col-form-label">
+									網址
+								</label>
+								<div class="col-md-10">
+									<input type="text" readonly class="form-control-plaintext" value="{{articleLink}}">
+								</div>
+							</div>
+							<div class="form-group row" >
+								<label  class="col-sm-1 col-form-label">
+									字數
+								</label>
+								<div class="col-md-10">
+									<input type="text" readonly class="form-control-plaintext" value="{{word_count}}">
+								</div>
+							</div>
+							<div class="form-group row" >
+								<label  class="col-sm-1 col-form-label">
+									點擊數
+								</label>
+								<div class="col-md-10">
+									<input type="text" readonly class="form-control-plaintext" value="{{view_count}}">
+								</div>
+							</div>
+							<div class="form-group row">
+									<label for='itemName'  class="col-sm-1 col-form-label">
+										狀態  
+									</label>
+									<div class="col-md-10">
+										<select class="form-control" id="selectArticleStatus">
+											{% for i in statusList %}
+												{% if articleStatus == i %}
+													{% if i == 'untagged' %}
+														<option value="{{articleStatus}}" selected>未標注</option>
+													{% elif i == 'tagging' %}
+														<option value="{{articleStatus}}" selected>工作中</option>
+													{% elif i == 'tagged' %}
+														<option value="{{articleStatus}}" selected>已完成</option>
+													{% elif i == 'abandoned' %}
+														<option value="{{articleStatus}}" selected>廢棄文</option>
+													{% endif %}   
+													<!-- <option value="{{articleStatus}}" selected>{{articleStatus}}</option> -->
+												{% else %}
+													{% if i == 'untagged' %}
+														<option value="{{i}}">未標注</option>
+													{% elif i == 'tagging' %}
+														<option value="{{i}}">工作中</option>
+													{% elif i == 'tagged' %}
+														<option value="{{i}}">已完成</option>
+													{% elif i == 'abandoned' %}
+														<option value="{{i}}">廢棄文</option>
+													{% endif %}   
+													<!-- <option value="{{i}}">{{i}}</option> -->
+												{% endif %}
+											{% endfor %}
+										</select>
+									</div>
+							</div>
+							<div class="form-group row" >
+								<label for='itemName'  class="col-sm-1 col-form-label">
+									商品
+								</label>
+								<div class="col-md-10">
+									{% if not item_name %}
+										<input type="text" id='itemName' class="form-control" placeholder="請填商品名稱">
+									{% else %}
+										<input type="text" id='itemName' class="form-control" value ="{{item_name}}">
+									{% endif %}
+								</div>
+							</div>
+							<div class="form-group row" >
+								<label for='itemStore'  class="col-sm-1 col-form-label">
+									商家
+								</label>
+								<div class="col-md-10">
+									{% if not item_store %}
+										<input type="text" id='itemStore' class="form-control" placeholder="請填商家名稱, 若有多個商家請以逗號分開. 如 7-11, 全家, 萊爾富, OK">
+									{% else %}
+										<input type="text" id='itemStore' class="form-control" value ="{{item_store}}">
+									{% endif %}								
+								</div>
+							</div>
+							<div class="form-group row" >
+								<label for='newTitle'  class="col-sm-1 col-form-label">
+									新標題
+								</label>
+								<div class="col-md-10">
+									{% if not new_title or new_title == 'none'%}
+										<input type="text" id='newTitle' class="form-control" placeholder="請為文章寫一個新的標題,盡量包含文章主要重點">
+									{% else %}
+										<input type="text" id='newTitle' class="form-control" value ="{{new_title}}">
+									{% endif %}								
+								</div>
+							</div>
+						</h5>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="row " style ='padding-left: 1%; padding-top: 1%; padding-right: 1%'>
+			<div class="col-sm-6">
+			  <div class="card bg-light">
+				<div class="card-header">
+					<h5>
+						標注區 : 詞彙 (1:藍, 2:綠, 3:黃, 4:橙, 5:紅)
+					</h5>
+				</div>
+				<div class="card-body">
+				  <p class="card-text" id="article-content_w"></p>
+				</div>
+			  </div>
+			</div>
+			<div class="col-sm-6">
+			  <div class="card bg-light">
+				<div class="card-header">
+						<h5>
+							標注區 : 語句 (1:藍, 2:綠, 3:黃, 4:橙, 5:紅)
+						</h5>
+				</div>
+				<div class="card-body">
+				  <p class="card-text" id="article-content_s"></p>
+				</div>
+			  </div>
+			</div>
+		</div>
+
+		<p align="center">
+			<button class="button" id="grep" style="right: 15vh;">標記</button>
+			<button class="button" id="save" style="right: 5px;">存檔</button>
+		</p>
+		<script src="http://code.jquery.com/jquery-latest.js"></script>
+		<script src="{{ url_for('static', filename='js/sweetalert.modified.min.js') }}"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+		<script>
+			$(document).ready(function() {
+                includeHTML();
+                $('#selectBox').change(function() {
+                    this.form.submit();
+				});
+                $('mention').click(setMention);
+				$('#save').click(e => {
+                    var data_s = document.getElementById('article-content_s').innerHTML;
+					var data_w = document.getElementById('article-content_w').innerHTML;
+					var item_name = document.getElementById("itemName").value;
+					var item_store = document.getElementById("itemStore").value;
+					var status = document.getElementById("selectArticleStatus").value;
+					var new_title = document.getElementById("newTitle").value;						
+                    result = {index: "{{articleIndex}}", articleType: "{{articleType}}", 
+					data_s: data_s, data_w: data_w, item_name: item_name, item_store: item_store,
+					status: status, new_title: new_title};
+					$.ajax({
+					    type: 'POST',
+					    contentType: 'application/json',
+					    data: JSON.stringify(result),
+						dataType: 'json',
+					    url: '{{ url_for("save") }}',
+					    success: function (e) {
+					        console.log(e);
+					    }
+					});
+					swal({
+						title: 'Save!',
+						text: '大大辛苦了 >////<',
+						content: "",
+					});
+				});
+
+				$('#grep').click(e => {
+					sel = window.getSelection();
+
+					if ( (!sel.anchorNode || !sel.focusNode) || (sel.anchorNode == sel.focusNode && sel.anchorOffset == sel.focusOffset) ) {
+						swal('No selection!', '', 'error');
+						return false;
+					}
+
+					var e0 = sel.anchorNode.parentNode;
+					var e1 = sel.focusNode.parentNode;
+
+					console.log(e0);
+					console.log(e1);
+
+					if ( e0.nodeName != 'WORD' || e1.nodeName != 'WORD' ) {
+						swal('Invalid range!', 'unknown starting/ending point!', 'error');
+						return false;
+					}
+
+					if ( $(e0).parents().is('mention') || $(e1).parents().is('mention') ) {
+						swal('Invalid range!', 'contained in another mention!', 'error');
+						return false;
+					}
+
+					var range = document.createRange();
+					range.setStart(e0, 0);
+					range.setEnd(e1, 1);
+
+					var contents = range.cloneContents()
+					var words    = contents.children;
+					if ( !$(words).is('word') ) {
+						swal('Invalid range!', '', 'error');
+						return false;
+					}
+
+					var mention = document.createElement("mention");
+					mention.id = e0.id+'@'+e1.id;
+
+                    $(mention).attr('score', 0);
+                    $(mention).attr('text', sel);
+					$(mention).append(contents);
+					range.deleteContents();
+					range.insertNode(mention);
+
+					$(mention).click(setMention);
+					$(mention).trigger('click');
+				});
+			});
+
+            function includeHTML() {
+                var content_s = '{{article_s}}';
+                var content_w = '{{article_w}}';
+                $('#article-content_s').html($('<div />').html(content_s).text());
+                $('#article-content_w').html($('<div />').html(content_w).text());
+            };
+
+            function enterGrep() {
+                if (event.keyCode == 13) {
+					$('#grep').trigger('click');
+					event.preventDefault();
+				};
+            }
+			function setMention() {
+				swal({
+					title: 'I am a mention!',
+					text:
+							'id='+$(this).attr('id')+'\n'+
+							'score='+$(this).attr('score')+'\n'+
+                            'text='+$(this).attr('text')+'\n',
+					buttons: {
+						// subjective: true,
+						// objective: true,
+                        1: true,
+                        2: true,
+                        3: true,
+                        4: true,
+                        5: true,
+                        delete: true,
+						cancel: true
+					}
+				}).then(score => {
+					if ( score === null ) { return; }
+					switch (score) {
+						case 'delete':
+							$(this).replaceWith($(this).children());
+						default:
+							$(this).attr('score', score);
+					}
+				});
+				$('button.swal-button--delete').parent().before('<hr>')
+			}
+
+		</script>
+
+	</body>
+</html>
