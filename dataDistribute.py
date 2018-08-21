@@ -14,14 +14,16 @@ def arg_parse():
 
 
 def JsonLoad(category, AssignNumber, username):
-	path_to_appier_json = '../appierData/appierData/parsedData'
+	print(category, AssignNumber, username)
+	path_to_appier_json = '../appierData/appierData/parsedData/'
 	path_to_user_json   = '../userData/' + username + '/'
 	data_to_be_assigned = []
 	
 	appier_json_files = [pos_json for pos_json in os.listdir(path_to_appier_json) if pos_json.endswith('.json')]
 
 	# sort json files from small num to large num. 
-	appier_json_files_num = [int(filename[len(category):-len('.json')]) for filename in appier_json_files]
+	# pdb.set_trace()
+	appier_json_files_num = [int(filename[len(category):-len('.json')]) for filename in appier_json_files if filename[:len(category)]==category]
 	appier_json_files_num.sort()
 	
 	# set initiate file number as 0:
@@ -49,7 +51,7 @@ def JsonLoad(category, AssignNumber, username):
 				if temp_data[article_order]['assigned'] == 'no':
 					temp_data[article_order]['assigned'] = 'yes'
 					temp_data[article_order]['annotater'] = username
-					saved_path = path_to_user_json + category + str(appier_json_files_num[IntiateFileNum]) + '_' + temp_data[article_order]['id'] + '.json'
+					saved_path = path_to_user_json + category + '/' + category + str(appier_json_files_num[IntiateFileNum]) + '_' + temp_data[article_order]['id'] + '.json'
 					
 					# save an article to the user folder 
 					JsonDump([temp_data[article_order]], saved_path)

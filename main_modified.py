@@ -97,7 +97,7 @@ def save():
         articleType = content['articleType']
         # print("content:", content)
         print("path:", path)
-
+        print("hello\n")
         ## locate json file
         json_file = getJsonLoc(articleType)
          
