@@ -16,7 +16,7 @@ def updateJsonFile(filename, filepath):
         json.dump(readJson, json_file2)
 
 if __name__ == '__main__':
-    path_to_json = './appierData/'
+    path_to_json = '../appierData/'
     json_files = [pos_json for pos_json in os.listdir(path_to_json) if pos_json.endswith('.json')]
     
     for file in json_files:
