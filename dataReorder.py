@@ -104,20 +104,19 @@ elif args.count:
 # organize: 
 elif args.organize:
 	# done_path: path to store tagged articles.
-	done_path = '../doneData/first_stage/'
+	done_path = '../doneData/'
 
-	for cate in ['food','tech','beauty','movie']:
-		with open(done_path+cate+'.json', 'w') as f: json.dump([],f)
-	# pdb.set_trace()
 	for i in range(args.n_user+1):
 		user_path = '../userData/user'+str(i)+'/'
-		user_files = os.listdir(os.path.join(os.getcwd(), user_path))
-		
-		for userf in user_files:
-			if not userf.endswith('.json'): continue
-			print('user{}/{}'.format(i,userf))
-			with open(user_path+userf,'r',encoding='utf8') as f: userData = json.load(f)
-			with open(done_path+category(userf)+'.json','r') as f: doneData = json.load(f)
+		user_categories = [name for name in os.listdir(user_path) if os.path.isdir(os.path.join(user_path,name))]
+		# print(user_files)
+		# pdb.set_trace()
+		for cat in user_categories:
+			fileDir = user_path + cat + '/'
+			category_files = [name for name in os.listdir(fileDir) if name.ensdwith('.json')]
+			for filename in category_files:
+				filePath = fileDir + filename 
+				with open(done_path + cat + '.json','r') as f: doneData = json.load(f)
 			for d in userData:
 				if d['status']!='tagged': continue 
 				d['annotator'] = args.user
