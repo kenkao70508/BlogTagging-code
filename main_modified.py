@@ -26,20 +26,23 @@ def category(category):
     articleList = []
     articles = []
     articleType = category
-
+    print("="*10)
+    print("action: Load all Json Files")
     for file in json_files:
         with open(filepath + '/' + file, 'r', encoding="utf-8") as f: 
             article = json.load(f)
             articles.append(article[0])
+            session[article[0]['id']] = file
+            print("message: Session[{}]:{}".format(article[0]['id'], file))
             for a in article: articleList.append([a['id'], a['title'], a['number']])
         f.close()
-
+    
     ## collect data for specific article
     index = request.args.get('index')
     if not index: 
         index = articleList[0][0]
-    print("This is the index:", index)   
-
+    print("message: This is the current article's index/id:", index)   
+    
     for a in articles:
         if a['id'] == index:
             articleName = a['title']
@@ -60,7 +63,8 @@ def category(category):
 
     ##  specify allowed article status        
     statusList = ['untagged','tagging','tagged','abandoned']
-
+    print("action: Show article")
+    print("="*10)
     return render_template('index.html', article_s=content_s, article_w=content_w, 
     articleIndex=index, articleName=articleName, articleLink=articleLink,
     articleList=articleList, articleType=articleType, view_count=view_count, word_count = word_count,
@@ -80,7 +84,6 @@ def articleList(category):
     for file in json_files:
         with open(filepath + '/' + file, 'r', encoding="utf-8") as f: 
             articles = json.load(f)
-            session[articles[0]['index']] = file
             for a in articles: 
                 if 'status' not in a:
                     a['status'] = 'untagged'
@@ -98,9 +101,11 @@ def save():
         filename = session.get(content['index'])
         ## locate json file
         json_file = getJsonLoc(articleType)
-         
-        
-        with open(json_file + filename, 'r', encoding="utf-8") as f: data = json.load(f)
+        print("="*10)
+        print("action: Save-success ")
+        print("message: file_path:{}".format(json_file + '/' + filename))
+
+        with open(json_file + '/' + filename, 'r', encoding="utf-8") as f: data = json.load(f)
         for d in data:
             if d['id']==content['index']: 
                 d['content_w'] = content['data_w']
@@ -109,10 +114,15 @@ def save():
                 d['item_store'] = content['item_store']
                 d['status'] = content['status']
                 d['new_title'] = content['new_title']
-        with open(json_file, 'w') as f: json.dump(data, f)
+        with open(json_file + '/' + filename, 'w') as f: json.dump(data, f)
         f.close()
+        print("action: Saved!")
+        print("="*10)
         return jsonify(message='')
     except Exception as e:
+        print("="*10)
+        print("action: Save-wrong ")
+        print("="*10)
         return jsonify(message=str(e)), 500
 
 @app.route('/login', methods=(['GET', 'POST']))
@@ -184,5 +194,5 @@ def getJsonLoc(category):
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='140.112.90.203', port=5789)
-    # app.run(debug=True)
+    # app.run(debug=True, host='140.112.90.203', port=5789)
+    app.run(debug=True)
