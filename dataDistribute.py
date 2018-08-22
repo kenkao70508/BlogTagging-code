@@ -63,7 +63,8 @@ def JsonLoad(category, AssignNumber, username):
 			print("="*20)
 			print("file:", target_json_filepath)
 			print("Total Number of articles:", len(temp_data))
-			print("Number of assigned articles for current file:", temp_assigned_num)
+			print("Number of assigned articles for this time:", temp_assigned_num)
+			print("Number of already assigned articles for current file:", temp_already_assigned_num)
 			print("Number of unassigned articles for current file:", len(temp_data) - temp_already_assigned_num)
 		
 		if no_more_articles_to_be_assigned:
