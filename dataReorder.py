@@ -101,7 +101,10 @@ def dataOrganize(userPath, donePath):
 				article['stored'] = 'yes'
 				doneData.append(article)
 				numOfSavedArticles += 1
+			# save updated article's information.
 			writeJson(fPath, [article])
+		# save doneData.
+		writeJson(doneDataPath, doneData)
 
 		### Show Saving Information ###
 		print("-" * 20)
@@ -163,7 +166,7 @@ def getStatistics():
 
 		# Show Information
 		print("Number of articles:{}".format(len(data)))
-		pdb.set_trace()
+		# pdb.set_trace()
 		tagged_w = 0
 		tagged_s = 0
 		tagged_n = 0
