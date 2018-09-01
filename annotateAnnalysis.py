@@ -120,7 +120,7 @@ if __name__ == '__main__':
         userPath = '../userDataBackup_180901/' + user + '/'
         # userPath = './userData/' + user + '/'
         userSummary = getStatistics(userPath, user)
-        # pdb.set_trace()
+        pdb.set_trace()
         # allUserSummary
         for userCatInfo in userSummary:
             if userSummary[0][1] == 'beauty':
