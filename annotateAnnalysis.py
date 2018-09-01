@@ -68,10 +68,10 @@ def getStatistics(userPath, user):
         # Get the information from the article
         for fPath in filePath:
             d = openJson(fPath)[0]
-            totalWords  += d['word_count']
 
             if d['status']=='tagged':
                 print("fileName:{}".format(fPath))
+                totalWords  += d['word_count']
                 # soup: tagged words & tagged sentence
                 taggedWordSoup = tag_count(d['content_w'], 'mention')
                 taggedSentenceSoup = tag_count(d['content_s'], 'mention')
@@ -94,8 +94,8 @@ def getStatistics(userPath, user):
             "No Word tags" if len(lengthTaggedWordList)==0 else float(sum(lengthTaggedWordList)) / len(lengthTaggedWordList),\
             "No Sentence tags" if len(lengthTaggedSentenceList)==0 else float(sum(lengthTaggedSentenceList)) / len(lengthTaggedSentenceList)]
     
-    # append category analysis to sum
-    sumCategoryAnalysis.append(categoryAnalysis)
+        # append category analysis to sum
+        sumCategoryAnalysis.append(categoryAnalysis)
 
     return sumCategoryAnalysis
 
@@ -120,7 +120,7 @@ if __name__ == '__main__':
         userPath = '../userDataBackup_180901/' + user + '/'
         # userPath = './userData/' + user + '/'
         userSummary = getStatistics(userPath, user)
-
+        # pdb.set_trace()
         # allUserSummary
         for userCatInfo in userSummary:
             if userSummary[0][1] == 'beauty':
