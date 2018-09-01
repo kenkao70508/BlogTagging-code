@@ -123,13 +123,13 @@ if __name__ == '__main__':
         pdb.set_trace()
         # allUserSummary
         for userCatInfo in userSummary:
-            if userSummary[0][1] == 'beauty':
+            if userCatInfo[1] == 'beauty':
                 beautySummary.append(userCatInfo)
-            if userSummary[0][1] == 'food':
+            if userCatInfo[1] == 'food':
                 foodSummary.append(userCatInfo)
-            if userSummary[0][1] == 'movie':
+            if uuserCatInfo[1] == 'movie':
                 movieSummary.append(userCatInfo)
-            if userSummary[0][1] == 'tech':
+            if userCatInfo[1] == 'tech':
                 techSummary.append(userCatInfo) 
             allUserSummary.append(userCatInfo)
 
