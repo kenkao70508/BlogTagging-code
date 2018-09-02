@@ -118,7 +118,7 @@ def dataOrganize(userPath, donePath):
 # record user's tagging process
 def recordProgress(userPath, user):
     # record: tags on top of csv.
-	workcsv = [['user', 'category', 'goal', 'tagging', 'tagged', 'left']]
+	workcsv = [['user', 'category', 'goal', 'tagged', 'left']]
 	# different categories of articles
 	CategoryList = ['movie', 'tech', 'beauty', 'food']
 	totalDone = 0
