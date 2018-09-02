@@ -103,7 +103,7 @@ def save():
         json_file = getJsonLoc(articleType)
         print("="*10)
         print("action: Save-success ")
-        pdb.set_trace()
+        print(json_file)
         print("message: file_path:{}".format(json_file + '/' + filename))
 
         with open(json_file + '/' + filename, 'r', encoding="utf-8") as f: data = json.load(f)
@@ -195,5 +195,5 @@ def getJsonLoc(category):
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='140.112.90.203', port=5789)
+    app.run(debug=True, host='140.112.90.203', port=9999)
     # app.run(debug=True)
