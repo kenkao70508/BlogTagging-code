@@ -4,7 +4,7 @@ from flask import (
     Flask, jsonify, render_template, request, send_from_directory, url_for, 
     g, redirect, session, 
 )
-import json, os, sqlite3
+import json, os, sqlite3,pdb
 
 app = Flask(__name__)
 SQLITE_DB_PATH = 'user.db'
@@ -103,6 +103,7 @@ def save():
         json_file = getJsonLoc(articleType)
         print("="*10)
         print("action: Save-success ")
+        pdb.set_trace()
         print("message: file_path:{}".format(json_file + '/' + filename))
 
         with open(json_file + '/' + filename, 'r', encoding="utf-8") as f: data = json.load(f)
