@@ -192,7 +192,7 @@ def getStatistics():
 				#abandoned_n+=1
 		sum_s = s[1]+s[2]+s[3]+s[4]+s[5]
 		sum_w = w[1]+w[2]+w[3]+w[4]+w[5]
-		#abd_csv.append([category(filename), abandoned_words/abandoned_n, tagged_words/tagged_n, abandoned_n/len(data)])
+		abd_csv.append([category(filename), abandoned_words/abandoned_n, tagged_words/tagged_n, abandoned_n/len(data)])
 		total_csv.append([category(filename), tagged_n, sum_s, s[5]/sum_s, s[4]/sum_s, s[3]/sum_s, s[2]/sum_s, s[1]/sum_s, sum_w, w[5]/sum_w, w[4]/sum_w, w[3]/sum_w, w[2]/sum_w, w[1]/sum_w])
 		writeCsv(csvc, csv_path+category(filename)+'_done_gereralInfo_'+ timeString + '.csv')
 	writeCsv(abd_csv, csv_path+'abandoned_analysis_' + timeString + '.csv')
@@ -204,9 +204,8 @@ if __name__ == '__main__':
 	args = arg_parse()
 	totalDone = 0
 	csv_path = './generated_csv/'
-	workcsv = [['user', 'category', 'goal', 'tagging', 'tagged', 'left']]
-	currentTime = datetime.today()
-	timeString  = str(currentTime.year)[2::] + str(currentTime.month) + str(currentTime.day)
+	workcsv = [['user', 'category', 'goal', 'tagged', 'left']]
+	timeString  = datetime.now().strftime ("%Y%m%d")
 	
 	# Number of users.
 	for i in range(args.n_user+1):

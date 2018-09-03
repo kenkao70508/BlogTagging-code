@@ -114,7 +114,7 @@ if __name__ == '__main__':
     beautySummary  = [categorySummary[0]]
 
     currentTime = datetime.today()
-    timeString  = str(currentTime.year)[2::] + str(currentTime.month) + str(currentTime.day)
+    timeString  = datetime.now().strftime("%Y%m%d")
 
     for i in range(args.n_user+1):
         # username
