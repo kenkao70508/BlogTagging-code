@@ -155,7 +155,7 @@ def recordProgress(userPath, user):
 # Get doneData's statistics
 
 def getStatistics():
-	done_path = '../doneDataBackup/'
+	done_path = '../doneDataBackup_180903/'
 	files = os.listdir(os.path.join(os.getcwd(), done_path))
 	abd_csv = [['category','average_chars_per_abandoned_article','average_chars_per_tagged_article','abandoned_ratio']]
 	total_csv = [['category','done_articles','tagged_sentences','sentence_five','sentence_four','sentence_three','sentence_two','sentence_one','tagged_words','word_five','word_four','word_three','word_two','word_one']]
@@ -213,9 +213,9 @@ if __name__ == '__main__':
 		# username
 		user = 'user' + str(i)
 		# user folder's path
-		userPath = '../userDataBackup_180901/' + user + '/'
+		userPath = '../userDataBackup_180903/' + user + '/'
 		# done folder's path
-		donePath = '../doneDataBackup/'
+		donePath = '../doneDataBackup_180903/'
 
 		if args.organize:
 			dataOrganize(userPath, donePath)
