@@ -130,7 +130,7 @@ if __name__ == '__main__':
                 beautySummary.append(userCatInfo)
             if userCatInfo[1] == 'food':
                 foodSummary.append(userCatInfo)
-            if uuserCatInfo[1] == 'movie':
+            if userCatInfo[1] == 'movie':
                 movieSummary.append(userCatInfo)
             if userCatInfo[1] == 'tech':
                 techSummary.append(userCatInfo) 
