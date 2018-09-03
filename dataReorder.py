@@ -194,9 +194,9 @@ def getStatistics():
 		sum_w = w[1]+w[2]+w[3]+w[4]+w[5]
 		#abd_csv.append([category(filename), abandoned_words/abandoned_n, tagged_words/tagged_n, abandoned_n/len(data)])
 		total_csv.append([category(filename), tagged_n, sum_s, s[5]/sum_s, s[4]/sum_s, s[3]/sum_s, s[2]/sum_s, s[1]/sum_s, sum_w, w[5]/sum_w, w[4]/sum_w, w[3]/sum_w, w[2]/sum_w, w[1]/sum_w])
-		writeCsv(csvc, csv_path+category(filename)+'_done_gereralInfo.csv')
-	writeCsv(abd_csv, csv_path+'abandoned_analysis' + timeString + '.csv')
-	writeCsv(total_csv, csv_path+'total_analysis' + timeString + '.csv')	
+		writeCsv(csvc, csv_path+category(filename)+'_done_gereralInfo_'+ timeString + '.csv')
+	writeCsv(abd_csv, csv_path+'abandoned_analysis_' + timeString + '.csv')
+	writeCsv(total_csv, csv_path+'total_analysis_' + timeString + '.csv')	
 
 
 
@@ -231,7 +231,7 @@ if __name__ == '__main__':
 
 	# Save all users progress
 	if args.userprogress:
-		writeCsv(workcsv, csv_path + 'alluser_status' + timeString + '.csv')
+		writeCsv(workcsv, csv_path + 'alluser_status_' + timeString + '.csv')
 
 
 
