@@ -137,10 +137,10 @@ if __name__ == '__main__':
             allUserSummary.append(userCatInfo)
 
     # writeCsv(allUserSummary, 'test.csv')
-    writeCsv(beautySummary, './generated_csv/beauty_annotate_analysis' + timeString +'.csv')
-    writeCsv(foodSummary, './generated_csv/food_annotate_analysis' + timeString +'.csv')
-    writeCsv(movieSummary, './generated_csv/movie_annotate_analysis' + timeString +'.csv')
-    writeCsv(techSummary, './generated_csv/tech_annotate_analysis' + timeString +'.csv')
-    writeCsv(allUserSummary, './generated_csv/alluser_annotate_analysis' + timeString +'.csv')
+    writeCsv(beautySummary, './generated_csv/beauty_annotate_analysis_' + timeString +'.csv')
+    writeCsv(foodSummary, './generated_csv/food_annotate_analysis_' + timeString +'.csv')
+    writeCsv(movieSummary, './generated_csv/movie_annotate_analysis_' + timeString +'.csv')
+    writeCsv(techSummary, './generated_csv/tech_annotate_analysis_' + timeString +'.csv')
+    writeCsv(allUserSummary, './generated_csv/alluser_annotate_analysis_' + timeString +'.csv')
 
 
