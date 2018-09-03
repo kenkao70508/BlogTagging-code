@@ -12,7 +12,7 @@ python3 main.py
 
 ### Track User's Progress
 ```
-python3 dataReorder.py --alluser --n_user $N_USER     # 生出所有 users 的進度到 generated_csv/alluser_analysis.csv 裡
+python3 dataReorder.py --userprogress --n_user $N_USER     # 生出所有 users 的進度到 generated_csv/alluser_analysis.csv 裡
 ```
 ### Organize Data
 ```
