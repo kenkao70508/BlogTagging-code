@@ -113,6 +113,9 @@ if __name__ == '__main__':
     techSummary  = [categorySummary[0]]
     beautySummary  = [categorySummary[0]]
 
+    currentTime = datetime.today()
+    timeString  = str(currentTime.year)[2::] + str(currentTime.month) + str(currentTime.day)
+
     for i in range(args.n_user+1):
         # username
         user = 'user' + str(i)
@@ -134,10 +137,10 @@ if __name__ == '__main__':
             allUserSummary.append(userCatInfo)
 
     # writeCsv(allUserSummary, 'test.csv')
-    writeCsv(beautySummary, './generated_csv/beauty_annotate_analysis.csv')
-    writeCsv(foodSummary, './generated_csv/food_annotate_analysis.csv')
-    writeCsv(movieSummary, './generated_csv/movie_annotate_analysis.csv')
-    writeCsv(techSummary, './generated_csv/tech_annotate_analysis.csv')
-    writeCsv(allUserSummary, './generated_csv/alluser_annotate_analysis.csv')
+    writeCsv(beautySummary, './generated_csv/beauty_annotate_analysis' + timeString +'.csv')
+    writeCsv(foodSummary, './generated_csv/food_annotate_analysis' + timeString +'.csv')
+    writeCsv(movieSummary, './generated_csv/movie_annotate_analysis' + timeString +'.csv')
+    writeCsv(techSummary, './generated_csv/tech_annotate_analysis' + timeString +'.csv')
+    writeCsv(allUserSummary, './generated_csv/alluser_annotate_analysis' + timeString +'.csv')
 
 
