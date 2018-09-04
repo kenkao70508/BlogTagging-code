@@ -173,8 +173,9 @@ def getStatistics():
 		w = [0]*6
 		s = [0]*6
 		tagged_words = 0
-		#abandoned_words = 0
-		#abandoned_n = 0
+		
+		abandoned_words = 0
+		abandoned_n = 0
 		
 		for d in data:
 			print(d['id'], d['status'])
@@ -187,9 +188,9 @@ def getStatistics():
 				for i in range(1,6): s[i]+=c[i]
 				for i in range(6,11): w[i-5]+=c[i]
 				csvc.append(c)
-			#elif d['status']=='abandoned':
-				#abandoned_words+=tag_count(d['content_w'],'word')
-				#abandoned_n+=1
+			elif d['status']=='abandoned':
+				abandoned_words+=tag_count(d['content_w'],'word')
+				abandoned_n+=1
 		sum_s = s[1]+s[2]+s[3]+s[4]+s[5]
 		sum_w = w[1]+w[2]+w[3]+w[4]+w[5]
 		abd_csv.append([category(filename), abandoned_words/abandoned_n, tagged_words/tagged_n, abandoned_n/len(data)])
@@ -205,7 +206,7 @@ if __name__ == '__main__':
 	totalDone = 0
 	csv_path = './generated_csv/'
 	workcsv = [['user', 'category', 'goal', 'tagged', 'left']]
-	timeString  = datetime.now().strftime ("%Y%m%d")
+	timeString  = datetime.now().strftime("%Y%m%d")
 	
 	# Number of users.
 	for i in range(args.n_user+1):
