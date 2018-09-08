@@ -155,7 +155,7 @@ def recordProgress(userPath, user):
 # Get doneData's statistics
 
 def getStatistics():
-	done_path = '../doneDataBackup_180903/'
+	done_path = '../doneDataBackup_180904/'
 	files = os.listdir(os.path.join(os.getcwd(), done_path))
 	abd_csv = [['category','average_chars_per_abandoned_article','average_chars_per_tagged_article','abandoned_ratio']]
 	total_csv = [['category','done_articles','tagged_sentences','sentence_five','sentence_four','sentence_three','sentence_two','sentence_one','tagged_words','word_five','word_four','word_three','word_two','word_one']]
@@ -193,7 +193,7 @@ def getStatistics():
 				abandoned_n+=1
 		sum_s = s[1]+s[2]+s[3]+s[4]+s[5]
 		sum_w = w[1]+w[2]+w[3]+w[4]+w[5]
-		abd_csv.append([category(filename), abandoned_words/abandoned_n, tagged_words/tagged_n, abandoned_n/len(data)])
+		#abd_csv.append([category(filename), abandoned_words/abandoned_n, tagged_words/tagged_n, abandoned_n/len(data)])
 		total_csv.append([category(filename), tagged_n, sum_s, s[5]/sum_s, s[4]/sum_s, s[3]/sum_s, s[2]/sum_s, s[1]/sum_s, sum_w, w[5]/sum_w, w[4]/sum_w, w[3]/sum_w, w[2]/sum_w, w[1]/sum_w])
 		writeCsv(csvc, csv_path+category(filename)+'_done_gereralInfo_'+ timeString + '.csv')
 	writeCsv(abd_csv, csv_path+'abandoned_analysis_' + timeString + '.csv')
@@ -213,9 +213,9 @@ if __name__ == '__main__':
 		# username
 		user = 'user' + str(i)
 		# user folder's path
-		userPath = '../userDataBackup_180903/' + user + '/'
+		userPath = '../userDataBackup_180904/' + user + '/'
 		# done folder's path
-		donePath = '../doneDataBackup_180903/'
+		donePath = '../doneDataBackup_180904/'
 
 		if args.organize:
 			dataOrganize(userPath, donePath)
