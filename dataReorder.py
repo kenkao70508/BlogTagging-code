@@ -213,9 +213,9 @@ if __name__ == '__main__':
 		# username
 		user = 'user' + str(i)
 		# user folder's path
-		userPath = '../userDataBackup_180904/' + user + '/'
+		userPath = '../userDataBackup_180908/' + user + '/'
 		# done folder's path
-		donePath = '../doneDataBackup_180904/'
+		donePath = '../doneDataBackup_180908/'
 
 		if args.organize:
 			dataOrganize(userPath, donePath)
