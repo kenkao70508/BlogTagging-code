@@ -61,14 +61,30 @@ def getStatistics(userPath, user):
     taggedWordList = []
     taggedSentenceList = []
     sumCategoryAnalysis = []
+    status = []
 
     for cat in categoryInfo:
         print("category:{}".format(cat[1]))
         filePath = [(cat[0] + name) for name in os.listdir(cat[0]) if name.endswith('.json')]
         # Get the information from the article
         for fPath in filePath:
+            passTest = True
+            new_title_status  = "good"
+            item_store_status = "good"
             d = openJson(fPath)[0]
+            if d['new_title'] == "":
+                new_title_status  = "no title"
+                passTest = False
+            if d['item_store'] == "":
+                item_store_status = "no items"
+                passTest = False
+            status.append([user, d['title'], new_title_status, item_store_status])
+            if passTest:
+                return (True, [])
+            else:
+                return (False, status)
 
+            """
             if d['status']=='tagged':
                 print("fileName:{}".format(fPath))
                 totalWords  += d['word_count']
@@ -98,7 +114,7 @@ def getStatistics(userPath, user):
         sumCategoryAnalysis.append(categoryAnalysis)
 
     return sumCategoryAnalysis
-
+    """
     
 
 
@@ -113,6 +129,7 @@ if __name__ == '__main__':
     techSummary  = [categorySummary[0]]
     beautySummary  = [categorySummary[0]]
 
+
     currentTime = datetime.today()
     timeString  = datetime.now().strftime("%Y%m%d")
 
@@ -122,9 +139,15 @@ if __name__ == '__main__':
         # user folder's path
         userPath = '../userDataBackup_180911/userData/' + user + '/'
         # userPath = './userData/' + user + '/'
+        articleStatus = [['username', 'title', 'new_title', 'item_store']]
         userSummary = getStatistics(userPath, user)
         # pdb.set_trace()
         # allUserSummary
+        if userSummary[0]:
+            for userCatInfo in userSummary[1]:
+                articleStatus.append(userCatInfo)
+        writeCsv(articleStatus, './generated_csv/'+ user + '_annotate_problems_' + timeString +'.csv')
+        """
         for userCatInfo in userSummary:
             if userCatInfo[1] == 'beauty':
                 beautySummary.append(userCatInfo)
@@ -142,5 +165,6 @@ if __name__ == '__main__':
     writeCsv(movieSummary, './generated_csv/movie_annotate_analysis_' + timeString +'.csv')
     writeCsv(techSummary, './generated_csv/tech_annotate_analysis_' + timeString +'.csv')
     writeCsv(allUserSummary, './generated_csv/alluser_annotate_analysis_' + timeString +'.csv')
+    """
 
 
