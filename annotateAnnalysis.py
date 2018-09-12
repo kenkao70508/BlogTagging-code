@@ -120,7 +120,7 @@ if __name__ == '__main__':
         # username
         user = 'user' + str(i)
         # user folder's path
-        userPath = '../userDataBackup_180911/' + user + '/'
+        userPath = '../userDataBackup_180911/userData/' + user + '/'
         # userPath = './userData/' + user + '/'
         userSummary = getStatistics(userPath, user)
         # pdb.set_trace()
